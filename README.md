@@ -37,5 +37,13 @@ Another important thing to let you all know is that Pixie is under an MIT licens
 
 # Setup
 
-Coming soon!
->>>>>>> origin/master
+Before getting into how your setup file should look, lets get into where it should be placed (by default), unless you change where it originally was, it should be in the same directory as Pixie. You can change it if you want to, but you're going to have to also edit the code a little.
+
+But, now we're through all the boring stuff - here's what you need to get it running.
+```
+{
+  "ownerid": "Your discord ID",
+  "prefix": "Whatever prefix you want to use",
+  "token": "Your bot token"
+}
+```
