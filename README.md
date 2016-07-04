@@ -1,7 +1,4 @@
 # Pixie
-<<<<<<< HEAD
-An open-source Discord bot built for Otakus.
-=======
 An open-source Discord bot built for Weebs by Weebs.
 
 # Current Features
