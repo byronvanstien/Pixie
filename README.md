@@ -47,3 +47,9 @@ But, now we're through all the boring stuff - here's what you need to get it run
   "token": "Your bot token"
 }
 ```
+# Requirements
+
+Python 3.5+
+lxml
+Shosetsu
+PrettyTable
