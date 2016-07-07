@@ -1,12 +1,12 @@
-import discord
 from discord.ext import commands
+import json
 
-__author__ = 'GetRektByMe'
-__version__ = '1.0'
+with open('setup.json') as file:
+    setup = json.load(file)
 
 
 def is_owner(ctx):
-    return ctx.message.author.id == "163992386094104576"
+    return ctx.message.author.id == setup['ownerid']
 
 
 class BotEdits:

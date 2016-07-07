@@ -1,13 +1,22 @@
 from discord.ext import commands
+import json
 from Shosetsu import Shosetsu
+
+with open('setup.json') as file:
+    setup = json.load(file)
+
+
+def is_owner(ctx):
+    return ctx.message.author.id == setup['ownerid']
 
 
 class VisualNovelDatabase:
+
     def __init__(self, bot):
         self.bot = bot
         self.vndb = Shosetsu()
 
-    @commands.group(pass_context=True)
+    @commands.group(pass_context=True, invoke_without_command=False)
     async def vndb(self, ctx):
         self.bot.say('Test')
 

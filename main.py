@@ -1,18 +1,25 @@
-import json
 from discord.ext import commands
-from imports import setup, is_owner
+import json
 
 description = "A bot programmed by Recchan\n\nThis bot's main focus is to provide some useful utilities for use primarily by otakus. Enjoy!"
 
+with open('setup.json') as file:
+    setup = json.load(file)
 
-bot = commands.Bot(command_prefix=[setup['prefix']], description=description, pm_help=True, help_attrs=dict(hidden=True))
+
+def is_owner(ctx):
+    return ctx.message.author.id == setup['ownerid']
+
+bot = commands.Bot(command_prefix=[setup[
+                   'prefix']], description=description, pm_help=True, help_attrs=dict(hidden=True))
 
 initial_extensions = [
     'plugins.changer',
     'plugins.status',
     'plugins.moderation',
     'plugins.novelupdates',
-    'plugins.vndb'
+    'plugins.vndb',
+    'plugins.overwatch'
 ]
 
 

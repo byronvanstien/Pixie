@@ -1,33 +1,31 @@
-from discord.ext import commands
 import aiohttp
-from bs4 import BeautifulSoup
+from discord.ext import commands
+import json
+
+with open('setup.json') as file:
+    setup = json.load(file)
+
+
+def is_owner(ctx):
+    return ctx.message.author.id == setup['ownerid']
 
 
 class OverWatch:
 
     def __init__(self, bot):
         self.bot = bot
-        self.battletag = None
-        self.platform = None
-        self.region = None
-        self.searchfor = None
-        self.baseurl = 'https://owapi.net/v1/u/'
+        self.baseurl = 'https://owapi.net/api/v2/u/'
 
-    @commands.group(pass_context=True)
-    async def overwatch(self, ctx):
-        if ctx.invoked_subcommand is None:
-            self.bot.say('Invalid command.')
-
-    @commands.command()
-    async def stats(self, *, username: str):
+    @commands.command(pass_context=True, description="Shows overwatch stats", name="ow", hidden=True)
+    async def stats(self, ctx, *, battletag: str):
         with aiohttp.ClientSession() as session:
-            async with session.get(self.baseurl + username + '/stats') as response:
-                parse = BeautifulSoup(await response.json(), 'lxml')
-                await self.bot.say(parse)
-
-        # except:
-            # await self.bot.say('```Error, names are case sensitive. Try
-            # again.```')
+            async with session.get(self.baseurl + battletag + '/stats/general') as response:
+                try:
+                    assert response.url == 'https://owapi.net/api/v2/u/' + battletag + '/stats/general'
+                    stats = await response.json()
+                    await self.bot.say('```BattleTag: {}\nRegion: {}\nLevel: {}\nGames Played: {}\nLosses: {}\nWins: {}\nRank: {}\nWin Rate: {}```'.format(stats['battletag'], stats['region'], stats['overall_stats']['level'], stats['overall_stats']['games'], stats['overall_stats']['losses'], stats['overall_stats']['wins'], stats['overall_stats']['rank'], stats['overall_stats']['win_rate']))
+                except:
+                    await self.bot.say('```404 Error. BattleTag not found (BattleTags are case sensitive, check that if you haven\'t!```')
 
 
 def setup(bot):

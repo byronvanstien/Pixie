@@ -11,6 +11,7 @@ English publisher - gets html tags
 
 
 class NovelUpdatesAPI:
+
     def __init__(self):
         """The base url that we'll be ripping information from"""
         self.baseurl = 'http://www.novelupdates.com/'
@@ -28,7 +29,8 @@ class NovelUpdatesAPI:
         async with self.session.get(self.baseurl, params=params) as response:
             if response.status == 200:
                 search = BeautifulSoup(await response.text(), 'lxml')
-                parsedsearch = search.find('a', class_='w-blog-entry-link').get('href')
+                parsedsearch = search.find(
+                    'a', class_='w-blog-entry-link').get('href')
                 return parsedsearch
             else:
                 raise aiohttp.ClientResponseError(response.status)
@@ -71,6 +73,7 @@ class NovelUpdatesAPI:
 if __name__ == '__main__':
     n = NovelUpdatesAPI()
     loop = asyncio.get_event_loop()
-    print(loop.run_until_complete(n.page_info_parser('Curing incurable diseases with semen')))
+    print(loop.run_until_complete(n.page_info_parser(
+        'Curing incurable diseases with semen')))
     print(loop.run_until_complete(n.page_info_parser('ISSTH')))
     print(loop.run_until_complete(n.page_info_parser('Sword art online')))
