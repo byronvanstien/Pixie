@@ -16,17 +16,11 @@ class VisualNovelDatabase:
         self.bot = bot
         self.vndb = Shosetsu()
 
-    @commands.group(pass_context=True, invoke_without_command=False)
-    async def vndb(self, ctx):
-        self.bot.say('Test')
-
-    @vndb.command(name="vn", pass_context=True)
+    @commands.command(pass_context=True, description="Gives visual novel information", name="vndb", hidden=True)
     async def visual_novel_db_visual_novel_lookup(self, ctx, *, visualnovelname: str):
-        try:
-            firstnovel = await self.vndb.get_novel(visualnovelname)
-            await self.bot.say('```Title: {}\nAliases: {}\nDevelopers: {}\nCover: {}\nLength: {}```'.format(firstnovel['Titles']['English'], firstnovel['Titles']['Aliases'], firstnovel['Developers'], firstnovel['Img'], firstnovel['Length']))
-        except:
-            await self.bot.say('```Check your spelling. Currently an issue selecting novels that do exist, if your name is correct, be aware this issue is being looked into.```')
+        info = await self.vndb.get_novel(visualnovelname)
+        await self.bot.say('```Title: {}\nCover: {}\nLength: {}\nDevelopers: {}\nPublishers: {}```'.format(info['titles']['english'], info['img'], info['length'], ', '.join(info['developers']), ', '.join(info['publishers'])))
+
 
 
 def setup(bot):

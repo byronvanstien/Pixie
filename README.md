@@ -1,11 +1,14 @@
 # Pixie
 An open-source Discord bot built for Weebs by Weebs.
+
 Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) incase you want to add Pixie to your server 
 
 # Current Features
 * Weeb Features
   * Light Novels
     * Grabbing data from NovelUpdates using NovelAPI.
+  * Visual Novels
+    * Can extract general information from [vndb](https://vndb.org/) using the [Shosetsu](https://github.com/ccubed/Shosetsu) scraper
 * Owner Restricted
   * Code Eval
   * Changing bot name
@@ -24,8 +27,6 @@ Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=17531
     * Integration with MyAnimelist
     * Integration with Hummingbird
     * Integration with Anilist
-  * Visual Novels
-    * Being able to extract information from vndb
   * Manga
     * Coming soon!
 
