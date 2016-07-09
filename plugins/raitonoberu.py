@@ -10,7 +10,7 @@ English publisher - gets html tags
 """
 
 
-class NovelUpdatesAPI:
+class Raitonoberu:
 
     def __init__(self):
         """The base url that we'll be ripping information from"""

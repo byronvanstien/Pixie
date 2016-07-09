@@ -1,15 +1,6 @@
 from datetime import datetime
 from discord.ext import commands
-import json
 from prettytable import PrettyTable
-
-with open('setup.json') as file:
-    setup = json.load(file)
-
-
-def is_owner(ctx):
-    return ctx.message.author.id == setup['ownerid']
-
 
 class Status:
 
@@ -18,7 +9,7 @@ class Status:
         self.uptime = datetime.now()
         self.gametable = PrettyTable()
 
-    @commands.command(pass_context=True, description="Shows current status of bot", name="status", hidden=True)
+    @commands.command(pass_context=True, description="Shows current status of bot", name="status")
     async def status(self, ctx):
         timeonline = datetime.now() - self.uptime
         self.gametable.add_row(

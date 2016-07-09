@@ -1,14 +1,5 @@
 import aiohttp
 from discord.ext import commands
-import json
-
-with open('setup.json') as file:
-    setup = json.load(file)
-
-
-def is_owner(ctx):
-    return ctx.message.author.id == setup['ownerid']
-
 
 class OverWatch:
 
@@ -16,7 +7,7 @@ class OverWatch:
         self.bot = bot
         self.baseurl = 'https://owapi.net/api/v2/u/'
 
-    @commands.command(pass_context=True, description="Shows overwatch stats", name="ow", hidden=True)
+    @commands.command(pass_context=True, description="Shows overwatch stats", name="ow")
     async def stats(self, ctx, *, battletag: str):
         with aiohttp.ClientSession() as session:
             async with session.get(self.baseurl + battletag + '/stats/general') as response:

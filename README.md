@@ -1,7 +1,7 @@
 # Pixie
 An open-source Discord bot built for Weebs by Weebs.
 
-Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) incase you want to add Pixie to your server 
+Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) incase you want to add Pixie to your server.
 
 # Current Features
 * Weeb Features
@@ -19,6 +19,8 @@ Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=17531
   * Kick
 * Overwatch
   * Ability to rip data and post overall stats
+* Let me google that for you
+  * Can have Pixie google something for you and send you the link
 
 
 # Planned Features

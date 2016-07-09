@@ -11,7 +11,7 @@ def is_owner(ctx):
     return ctx.message.author.id == setup['ownerid']
 
 bot = commands.Bot(command_prefix=[setup[
-                   'prefix']], description=description, pm_help=True, help_attrs=dict(hidden=True))
+                   'prefix']], description=description, pm_help=False, help_attrs=dict(hidden=True))
 
 initial_extensions = [
     'plugins.changer',
@@ -19,7 +19,8 @@ initial_extensions = [
     'plugins.moderation',
     'plugins.novelupdates',
     'plugins.vndb',
-    'plugins.overwatch'
+    'plugins.overwatch',
+    'plugins.lmgtfy'
 ]
 
 
@@ -31,7 +32,7 @@ async def eval_me(preeval: str):
 
 
 @commands.check(is_owner)
-@bot.command(description="Loads all the plugins at once", name="load", hidden=True)
+@bot.command(description="Loads all the plugins at once", name="load")
 async def load_all():
     for plugins in initial_extensions:
         bot.load_extension(plugins)
@@ -39,7 +40,7 @@ async def load_all():
 
 
 @commands.check(is_owner)
-@bot.command(description="Unloads all plugins at once", name="unload", hidden=True)
+@bot.command(description="Unloads all plugins at once", name="unload")
 async def unload_all():
     for plugins in initial_extensions:
         bot.unload_extension(plugins)
