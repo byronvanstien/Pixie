@@ -1,5 +1,7 @@
 from discord.ext import commands
+import sys
 
+sys.path.append(',,')
 
 def is_owner(ctx):
     with open('setup.json') as file:

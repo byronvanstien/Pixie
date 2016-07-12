@@ -16,7 +16,6 @@ bot = commands.Bot(command_prefix=[setup[
 
 initial_extensions = [
     'plugins.changer',
-    'plugins.status',
     'plugins.moderation',
     'plugins.novelupdates',
     'plugins.vndb',

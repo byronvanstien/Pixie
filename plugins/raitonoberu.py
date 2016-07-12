@@ -1,6 +1,7 @@
 import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
+import urllib
 
 """
 Currently Broken:
@@ -24,8 +25,8 @@ class Raitonoberu:
 
         :param term: Light Novel to Search For
         """
-        term = term.replace(' ', '+')
-        params = {'s': term, 'post_type': 'seriesplan'}
+        to_encode = {'s': term, 'post_type': 'seriesplan'}
+        params = urllib.parse.urlencode(to_encode)
         async with self.session.get(self.baseurl, params=params) as response:
             if response.status == 200:
                 search = BeautifulSoup(await response.text(), 'lxml')
