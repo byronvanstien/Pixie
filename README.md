@@ -1,60 +1,75 @@
 # Pixie
-An open-source Discord bot built for Weebs by Weebs.
-
-Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) incase you want to add Pixie to your server.
+* An open-source Discord bot built for weebs by a weeb.
+* Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) in case you want to add Pixie to your server. (Although she's not currently hosted by me), note that I am planning to host her quite soon now the addition of WeebMusic has been added!
 
 # Current Features
-* Weeb Features
-  * Light Novels
-    * Grabbing data from NovelUpdates using NovelAPI.
-  * Visual Novels
-    * Can extract general information from [vndb](https://vndb.org/) using the [Shosetsu](https://github.com/ccubed/Shosetsu) scraper
-* Owner Restricted
-  * Code Eval
-  * Changing bot name
-  * Changing bot game
-* Moderation (Currently owner locked due to not have created any permission checks)
-  * Purge
-  * Ban
-  * Kick
-* Overwatch
-  * Ability to rip data and post overall stats
-* Let me google that for you
-  * Can have Pixie google something for you and send you the link
+* Owner
+  * namechange (Changes the bots name)
+  * gamechange (Changes the bots game)
+  * avatar (Changes the bots avatar)
+  * debug
+  * REPL
+* Moderation
+  * purge (Deletes large amounts of messages) (Requires manage message permission)
+  * ban (Bans a user from a server) (Requires ban members permission)
+  * kick (Kicks a user from a server) (Requires kick members permission)
+* Information
+  * userinfo (Grabs information for a user)
+  * serverinfo (Grabs general server information)
+  * status (Shows some bot stats)
+* WeebMusic (Only supports streaming music from [listen.moe](https://listen.moe))
+  * music (a command group for using WeebMusic)
+    * join (Joins voice channel and starts the stream)
+    * pause (Pauses the stream)
+    * resume (Resumes the stream)
+    * volume (Sets the volume in the server you use the command in)
+    * check_vol (Checks the volume of the server you're in)
+    * disconnect (Leaves the voice channel and stops the stream)
+* Weeb
+  * mal (a command group for interacting with myanimelist)
+    * anisearch (Searches an anime)
+    * mangasearch (Searches a manga)
+  * novel (Searches a novel)
 
 
 # Planned Features
 * Weeb Features
   * Anime
-    * Integration with MyAnimelist
-    * Integration with Hummingbird
-    * Integration with Anilist
+    * Integration with MyAnimelist (being able to use your account from Pixie!)
+    * Integration with Hummingbird (being able to use your account from Pixie!)
+    * Integration with Anilist (being able to use your account from Pixie!)
   * Manga
-    * Coming soon!
+    * Coming soon! (Tbh I have no idea what I can do for this, help is appreciated when it comes to ideas)
+* Custom server prefixes
+
 
 # Information
-Pixie is built using Discord.py (see [here](https://github.com/Rapptz/discord.py))
-
-Some obvious information to state would be that Pixie is done using the Python programming language.
-
-Another important thing to let you all know is that Pixie is under an MIT license, meaning that you can do whatever with any code on this project, no questions asked.
-
-Something that I think is pretty cool information wise, Pixie is actually a reference to Mahouka Koukou no Rettousei.
+* Pixie is built using [discord.py](https://github.com/Rapptz/discord.py)
+* Pixie is a reference to the character from [Mahouka Koukou no Rettousei](http://www.novelupdates.com/series/mahouka-koukou-no-rettousei/) light novels.
 
 # Setup
 
-Before getting into how your setup file should look, lets get into where it should be placed (by default), unless you change where it originally was, it should be in the same directory as Pixie. You can change it if you want to, but you're going to have to also edit the code a little.
-
-But, now we're through all the boring stuff - here's what you need to get it running.
+But, now we're through all the boring stuff - here's what you need to get it running. This should be in the same folder as setup_example.json although it should be called setup.json
 ```
 {
-  "ownerid": "Your discord ID",
-  "prefix": "Whatever prefix you want to use",
-  "token": "Your bot token"
+    "discord":{
+        "owner_id": "",
+        "command_prefix": "",
+        "token": "",
+        "pixie_admins": []
+    },
+
+    "weeb":{
+        "ani_list": "",
+        "hummingbird": "",
+        "MAL": {
+            "username":"",
+            "password":""
+        }
+    },
+
+    "games":{
+        "osu_api_key": ""
+    },
 }
 ```
-# Requirements
-* Python 3.5+
-* lxml
-* Shosetsu
-* PrettyTable

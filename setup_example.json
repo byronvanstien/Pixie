@@ -1,0 +1,21 @@
+{
+    "discord":{
+        "owner_id": "",
+        "command_prefix": "",
+        "token": "",
+        "pixie_admins": []
+    },
+
+    "weeb":{
+        "ani_list": "",
+        "hummingbird": "",
+        "MAL": {
+            "username":"",
+            "password":""
+        }
+    },
+
+    "games":{
+        "osu_api_key": ""
+    },
+}
