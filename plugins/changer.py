@@ -1,16 +1,16 @@
 from discord.ext import commands
 
+
 def is_owner(ctx):
     with open('setup.json') as file:
         setup = json.load(file)
         return ctx.message.author.id == setup['ownerid']
 
-class BotEdits:
 
+class BotEdits:
 
     def __init__(self, bot):
         self.bot = bot
-        
 
     @commands.check(is_owner)
     @commands.command(pass_context=True, description="Allows the name of the bot to be changed", name="namechange")

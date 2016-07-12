@@ -1,9 +1,11 @@
 from discord.ext import commands
 
+
 def is_owner(ctx):
     with open('setup.json') as file:
         setup = json.load(file)
         return ctx.message.author.id == setup['ownerid']
+
 
 class Moderation:
 
@@ -27,12 +29,6 @@ class Moderation:
             await self.bot.say('```{} has been banned for {}```'.format(bannedfor, reason))
         except:
             await self.bot.say('```Ban failed. Check permissions.```')
-
-    @commands.check(is_owner)
-    @commands.command(pass_context=True, description="Check who is banned on the server", name="checkbans")
-    async def check_bans(self, ctx):
-        checkban = self.bot.get_bans(ctx.message.server)
-        await self.bot.say(checkban)
 
     @commands.check(is_owner)
     @commands.command(pass_context=True, description="Allows user to be kicked from server via bot command", name="kick")
