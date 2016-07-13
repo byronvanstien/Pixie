@@ -1,12 +1,14 @@
 from discord.ext import commands
+import discord
+import json
 import sys
 
-sys.path.append(',,')
+sys.path.append('..')
 
 def is_owner(ctx):
     with open('setup.json') as file:
-        setup = json.load(file)
-        return ctx.message.author.id == setup['ownerid']
+        owner = json.load(file)
+        return ctx.message.author.id == owner['ownerid']
 
 
 class BotEdits:

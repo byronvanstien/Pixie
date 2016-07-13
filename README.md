@@ -1,13 +1,13 @@
 # Pixie
 * An open-source Discord bot built for Weebs by Weebs.
-* Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) incase you want to add Pixie to your server.
+* Here's the[invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519)in case you want to add Pixie to your server. (Although she's not currently hosted by me)
 
 # Current Features
 * Weeb Features
   * Light Novels
-    * Grabbing data from NovelUpdates using NovelAPI.
+    * Grabbing data from NovelUpdates using[NovelAPI](https://github.com/GetRektByMe/NovelAPI)
   * Visual Novels
-    * Can extract general information from [vndb](https://vndb.org/) using the [Shosetsu](https://github.com/ccubed/Shosetsu) scraper
+    * Can extract general information from[vndb](https://vndb.org/)using the[Shosetsu](https://github.com/ccubed/Shosetsu)scraper
 * Owner Restricted
   * Code Eval
   * Changing bot name
@@ -34,15 +34,17 @@
     * Integration with Anilist
   * Manga
     * Coming soon!
+* Let me google that for you
+  * Have it set so you can choose if "I'm feeling lucky" is on
+* Permission checks
+* Prefixes set by individual server owners
+
 
 # Information
-Pixie is built using Discord.py (see [here](https://github.com/Rapptz/discord.py))
-
-Some obvious information to state would be that Pixie is done using the Python programming language.
-
-Another important thing to let you all know is that Pixie is under an MIT license, meaning that you can do whatever with any code on this project, no questions asked.
-
-Something that I think is pretty cool information wise, Pixie is actually a reference to Mahouka Koukou no Rettousei.
+* Pixie is built using Discord.py (see[here](https://github.com/Rapptz/discord.py))
+* Some obvious information to state would be that Pixie is done using the Python programming language.
+* Another important thing to let you all know is that Pixie is under an MIT license, meaning that you can do whatever with any code on this project, no questions asked.
+* Something that I think is pretty cool information wise, Pixie is actually a reference to Mahouka Koukou no Rettousei.
 
 # Setup
 
@@ -55,6 +57,8 @@ But, now we're through all the boring stuff - here's what you need to get it run
   "prefix": "Whatever prefix you want to use",
   "token": "Your bot token"
   "osu_key": "Your Osu api key"
+  "ani_list": "Your ani-list api key"
+  "hummingbird": "Your hummingbird api key"
 }
 ```
 # Requirements

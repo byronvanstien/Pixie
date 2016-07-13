@@ -1,8 +1,9 @@
 from discord.ext import commands
 from datetime import datetime, timedelta
 import json
+import psutil
 
-description = "A bot programmed by Recchan\n\nThis bot's main focus is to provide some useful utilities for use primarily by otakus. Enjoy!"
+description = "A bot programmed by Recchan\n\nThis bot's main focus is to be a bot for weebs, by weebs. Enjoy!"
 
 with open('setup.json') as file:
     setup = json.load(file)
@@ -11,8 +12,9 @@ with open('setup.json') as file:
 def is_owner(ctx):
     return ctx.message.author.id == setup['ownerid']
 
+
 bot = commands.Bot(command_prefix=[setup[
-                   'prefix']], description=description, pm_help=False, help_attrs=dict(hidden=True))
+                                       'prefix']], description=description, pm_help=False, help_attrs=dict(hidden=True))
 
 initial_extensions = [
     'plugins.changer',
@@ -35,6 +37,7 @@ def safe_roles(roles: list):
 
     return names
 
+
 @commands.check(is_owner)
 @bot.command(description="Allows me to evaluate code", name='eval', hidden=True)
 async def eval_me(preeval: str):
@@ -43,7 +46,7 @@ async def eval_me(preeval: str):
 
 
 @commands.check(is_owner)
-@bot.command(description="Loads all the plugins at once", name="load")
+@bot.command(description="Loads all the plugins at once", name="load", hidden=True)
 async def load_all():
     for plugins in initial_extensions:
         bot.load_extension(plugins)
@@ -51,28 +54,19 @@ async def load_all():
 
 
 @commands.check(is_owner)
-@bot.command(description="Unloads all plugins at once", name="unload")
+@bot.command(description="Unloads all plugins at once", name="unload", hidden=True)
 async def unload_all():
     for plugins in initial_extensions:
         bot.unload_extension(plugins)
     await bot.say("```Plugins have been unloaded.```")
 
 
-@bot.command(description='Shows current bot uptime', name='uptime')
-async def status():
-    timeonline = None
-    await bot.say(datetime.time())
-
-
 @bot.command(pass_context=True, description='Shows information for current server', name='serverinfo')
 async def server_info(ctx):
-    channel_count = 0
-    for channels in ctx.message.server.channels:
-        channel_count = channel_count+1
     await bot.say("```xl\nCurrent Server: {0.name}\nServer ID: {0.id}\nServer Owner: {0.owner}"
                   "\nMembers: {0.member_count}\nServer Region: {0.region}"
                   "\nServer Icon: {0.icon_url}\nChannels Count: {1}\n"
-                  "Roles: {2}```".format(ctx.message.server, channel_count,
+                  "Roles: {2}```".format(ctx.message.server, len(ctx.message.server.channels),
                                          ', '.join(safe_roles(ctx.message.server.roles))))
 
 
@@ -87,15 +81,14 @@ async def user_info(ctx, *, user=None):
 
 @bot.command(pass_context=True, description='Gets general information for the bot', name='status')
 async def bot_status(ctx):
-    server_count = 0
-    message_count = 0
-    user_count = 0
-    for servers in ctx.bot.servers:
-        server_count = server_count + 1
-    for messages in ctx.bot.messages:
-        message_count = message_count + 1
-
-    await bot.say("```xl\nServers joined: {0}\nMessages seen: {1}\nUsers: {2}```".format(server_count, message_count, bot.get_all_members(ctx.bot.servers))) # Currently showing as generator object; fix tomorrow
+    ram = psutil.virtual_memory()
+    ram_used_in_mb = ram.used >> 20
+    ram_total_in_mb = ram.total >> 20
+    ram_available_in_mb = ram.available >> 20
+    await bot.say(
+        "```xl\nServers Joined: {0}\nMessages Seen: {1}\nUnique Users: {2}\nRAM (TOTAL/USED/AVAILABLE): {4}/{3}/{5}```".format(
+            len(ctx.bot.servers), len(ctx.bot.messages), len(set(bot.get_all_members())), ram_used_in_mb,
+            ram_total_in_mb, ram_available_in_mb))
 
 
 @bot.event
@@ -106,5 +99,6 @@ async def on_ready():
     print(bot.user.id)
     print('https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519')
     print('------')
+
 
 bot.run(setup['token'])
