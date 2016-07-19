@@ -7,7 +7,7 @@
   * Light Novels
     * Grabbing data from NovelUpdates using [NovelAPI](https://github.com/GetRektByMe/NovelAPI)
   * Visual Novels
-    * Can extract general information from [vndb](https://vndb.org/) using the [Shosetsu](https://github.com/ccubed/Shosetsu) scraper
+    * Can extract general information from [vndb](https://vndb.org/) using the [Shosetsu](https://git.vertinext.com/ccubed/Shosetsu) scraper
 * Owner Restricted
   * Code Eval
   * Changing bot name
