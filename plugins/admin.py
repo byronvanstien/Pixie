@@ -24,15 +24,9 @@ class Admin:
     @commands.check(is_owner)
     @commands.command(pass_context=True, description="Change avatar of the bot", name="avatar")
     async def avatar(self, ctx, image: str):
-        try:
-            if "http" or "https" in ctx.message.content:
-                pass
-            else:
-                with open("{}.jpeg".format(image), 'rb') as image:
-                    image = image.read()
-                    await self.bot.edit_profile(avatar=image)
-        except Exception as e:
-            await self.bot.say(e)
+        with open("{}.jpeg".format(image), 'rb') as image:
+            image = image.read()
+            await self.bot.edit_profile(avatar=image)
 
     @commands.check(is_owner)
     @commands.command(pass_context=True, hidden=True)

@@ -15,7 +15,6 @@ initial_extensions = [
 ]
 
 
-
 @commands.check(is_owner)
 @bot.command(description="Loads all the plugins at once", name="load", hidden=True)
 async def load_all():
@@ -46,8 +45,9 @@ async def bot_status(ctx):
 
 @bot.event
 async def on_member_join(member):
-    role = discord.utils.get("the iterator that im too retarded to know what is", id="theidthatilost")
-    bot.add_roles(member, role)
+    if member.server.id == '209121677148160000':
+        role = discord.utils.get(member.server.roles, name="Member")
+        await bot.add_roles(member, role)
 
 
 @bot.event
