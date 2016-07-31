@@ -1,48 +1,19 @@
-from discord.ext import commands
-from datetime import datetime, timedelta
-import json
+import discord
 import psutil
+from checks import setup_file, is_owner
+from discord.ext import commands
 
-description = "A bot programmed by Recchan\n\nThis bot's main focus is to be a bot for weebs, by weebs. Enjoy!"
-
-with open('setup.json') as file:
-    setup = json.load(file)
-
-
-def is_owner(ctx):
-    return ctx.message.author.id == setup['ownerid']
-
-
-bot = commands.Bot(command_prefix=[setup[
-                                       'prefix']], description=description, pm_help=False, help_attrs=dict(hidden=True))
+bot = commands.Bot(command_prefix=[setup_file['prefix']],
+                   description="A bot programmed by Recchan, main focus on features for weebs.", pm_help=False,
+                   help_attrs=dict(hidden=True))
 
 initial_extensions = [
-    'plugins.changer',
+    'plugins.admin',
+    'plugins.utility',
     'plugins.moderation',
-    'plugins.novelupdates',
-    'plugins.vndb',
-    'plugins.overwatch',
-    'plugins.lmgtfy',
-    'plugins.osu'
+    'plugins.repl'
 ]
 
-
-def safe_roles(roles: list):
-    names = []
-    for role in roles:
-        if role.name == "@everyone":
-            names.append("@\u200beveryone")
-        else:
-            names.append(role.name)
-
-    return names
-
-
-@commands.check(is_owner)
-@bot.command(description="Allows me to evaluate code", name='eval', hidden=True)
-async def eval_me(preeval: str):
-    code = eval(preeval[5:])
-    await bot.say("```" + code + "```")
 
 
 @commands.check(is_owner)
@@ -61,24 +32,6 @@ async def unload_all():
     await bot.say("```Plugins have been unloaded.```")
 
 
-@bot.command(pass_context=True, description='Shows information for current server', name='serverinfo')
-async def server_info(ctx):
-    await bot.say("```xl\nCurrent Server: {0.name}\nServer ID: {0.id}\nServer Owner: {0.owner}"
-                  "\nMembers: {0.member_count}\nServer Region: {0.region}"
-                  "\nServer Icon: {0.icon_url}\nChannels Count: {1}\n"
-                  "Roles: {2}```".format(ctx.message.server, len(ctx.message.server.channels),
-                                         ', '.join(safe_roles(ctx.message.server.roles))))
-
-
-@bot.command(pass_context=True, description='Shows information for a user', name='userinfo')
-async def user_info(ctx, *, user=None):
-    await bot.say("```xl\nNickname: {0.nick}\nUsername: {0.name}\nDiscriminator: {0.discriminator}\nUser ID: {0.id}"
-                  "\nAvatar: https://discordapp.com/api/users/{0.id}/avatars/{0.avatar}.jpg\nColour: {0.colour}"
-                  "\nHighest Role: {0.top_role} \nPlaying: {0.game}\nAccount created: {0.created_at}"
-                  "\nJoined on: {0.joined_at}""\nRoles: {1}```".format(ctx.message.author,
-                                                                       ', '.join(safe_roles(ctx.message.author.roles))))
-
-
 @bot.command(pass_context=True, description='Gets general information for the bot', name='status')
 async def bot_status(ctx):
     ram = psutil.virtual_memory()
@@ -92,6 +45,12 @@ async def bot_status(ctx):
 
 
 @bot.event
+async def on_member_join(member):
+    role = discord.utils.get("the iterator that im too retarded to know what is", id="theidthatilost")
+    bot.add_roles(member, role)
+
+
+@bot.event
 async def on_ready():
     bot.connect()
     print('Logged in as')
@@ -101,4 +60,4 @@ async def on_ready():
     print('------')
 
 
-bot.run(setup['token'])
+bot.run(setup_file['token'])
