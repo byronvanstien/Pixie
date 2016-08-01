@@ -30,7 +30,7 @@ class Admin:
 
     @commands.check(is_owner)
     @commands.command(pass_context=True, hidden=True)
-    async def debug(self, ctx, *, code : str):
+    async def debug(self, ctx, *, code: str):
         """Evaluates code."""
         code = code.strip('` ')
         python = '```py\n{}\n```'

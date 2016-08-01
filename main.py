@@ -1,3 +1,5 @@
+import logging
+
 import discord
 import psutil
 from checks import setup_file, is_owner
@@ -6,6 +8,12 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix=[setup_file['prefix']],
                    description="A bot programmed by Recchan, main focus on features for weebs.", pm_help=False,
                    help_attrs=dict(hidden=True))
+
+logger = logging.getLogger('Pixie')
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler(filename='pixie.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s %(message)s'))
+logger.addHandler(handler)
 
 initial_extensions = [
     'plugins.admin',
