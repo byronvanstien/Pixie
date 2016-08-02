@@ -1,7 +1,8 @@
 import asyncio
+import urllib
+
 import aiohttp
 from bs4 import BeautifulSoup
-import urllib
 
 """
 Currently Broken:
@@ -17,6 +18,9 @@ class Raitonoberu:
         """The base url that we'll be ripping information from"""
         self.baseurl = 'http://www.novelupdates.com/'
         self.session = aiohttp.ClientSession()
+
+    def __del__(self):
+        self.session.close()
 
     async def search_novel_updates(self, term: str):
         """
@@ -72,7 +76,7 @@ class Raitonoberu:
                 raise aiohttp.ClientResponseError(response.status)
 
 if __name__ == '__main__':
-    n = NovelUpdatesAPI()
+    n = Raitonoberu()
     loop = asyncio.get_event_loop()
     print(loop.run_until_complete(n.page_info_parser(
         'Curing incurable diseases with semen')))
