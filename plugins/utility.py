@@ -1,7 +1,10 @@
+import json
 import sys
 import urllib
 
-from checks import safe_roles
+import aiohttp
+from checks import safe_roles, headers
+import discord
 from discord.ext import commands
 
 from .raitonoberu import Raitonoberu
@@ -10,10 +13,15 @@ sys.path.append("..")
 
 
 class Utility:
+
+    UD_BASE_URL = "http://api.urbandictionary.com/v0/define"
+    LMGTFY_BASE_URL = "http://lmgtfy.com/"
+    
     def __init__(self, bot):
         self.bot = bot
-        self.LMGTFY_BASE_URL = "http://lmgtfy.com/"
         self.raitonoberu_instance = Raitonoberu()
+        self.headers = headers()
+        self.session = aiohttp.ClientSession(headers=self.headers)
 
     @commands.command(pass_context=True, description="Lets the user have the bot google for you", name="lmgtfy")
     async def lmgtfy(self, ctx, searchterm: str):
@@ -54,6 +62,19 @@ class Utility:
                                                                          safe_roles(ctx.message.author.roles))))
         else:
             return
+
+    @commands.command(description='gets all emojis in current server', name='emoji')
+    async def get_emoji(self, ctx):
+        await self.bot.say('```xl\n' + 'Emojis on discord must be wrapped in : on both sides, e.g. :emoji:\n\n' + ", ".join([x.name for x in ctx.message.server.emojis]) + '```')
+
+    @commands.command(pass_context=True, description='Urban Dictionary', name='ud')
+    async def urban_dictionary(self, ctx, *, term):
+        async with self.session.get(self.UD_BASE_URL, params=urllib.parse.urlencode({'term': term})) as response:
+            to_parse = json.loads(await response.text())
+            if response.status == 200:
+                await self.bot.say('```xl\n' + 'Name: ' + to_parse['list'][0]['word'] + '\n' + 'Definition: ' + to_parse['list'][0]['definition'] + '\n' + 'Example: ' + to_parse['list'][0]['example'] + '\n' + 'Upvotes: ' + str(to_parse['list'][0]['thumbs_up']) + '\n' 'Downvotes: ' + str(to_parse['list'][0]['thumbs_down']) + '```')
+            else:
+                await self.bot.say(response.status)
 
 
 def setup(bot):
