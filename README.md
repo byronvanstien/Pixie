@@ -3,27 +3,19 @@
 * Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) in case you want to add Pixie to your server. (Although she's not currently hosted by me)
 
 # Current Features
-* Weeb Features
-  * Light Novels
-    * Grabbing data from NovelUpdates using [NovelAPI](https://github.com/GetRektByMe/NovelAPI)
-  * Visual Novels
-    * Can extract general information from [vndb](https://vndb.org/) using the [Shosetsu](https://github.com/ccubed/Shosetsu) scraper
-* Owner Restricted
-  * Code Eval
-  * Changing bot name
-  * Changing bot game
-* Moderation (Currently owner locked due to not have created any permission checks)
-  * Purge
-  * Ban
-  * Kick
-* Overwatch
-  * Ability to rip data and post overall stats
-* Let me google that for you
-  * Can have Pixie google something for you and send you the link
-* Information
-  * User info
-  * Server info
-  * General bot status
+* Admin
+  * namechange (Changes the bots name)
+  * gamechange (Changes the bots game)
+  * avatar (Changes the bots avatar)
+  * debug (Allows the user to evaludate python code)
+* Moderation
+  * purge (Deletes large amounts of messages)
+  * ban (Bans a user from a server)
+  * kick (Kicks a user from a server)
+* REPL
+* Utility
+  * lmgtfy (Let me google that for you)
+  * novel (Searches a light novel and gets data from [Novel Updates](http://novelupdates.com) [using Raitonoberu](https://github.com/GetRektByMe/Raitonoberu))
 
 
 # Planned Features
