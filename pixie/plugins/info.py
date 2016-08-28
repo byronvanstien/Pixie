@@ -5,6 +5,8 @@ from discord.ext import commands
 
 class Info:
 
+    """Info is a class within Pixie that is only for accessing data from discords built in things (Although we add Pixie's status command here)"""
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -14,24 +16,24 @@ class Info:
         if user is None:
             await self.bot.say("```xl\n"
                                "User: {0}\n"
-                               "User Nickname: {0.nick}\n"
-                               "User ID: {0.id}\n"
-                               "User Avatar: {0.avatar_url}\n"
-                               "User Created At: {0.created_at}\n"
-                               "User Joined On: {0.joined_at}\n"
-                               "Users Game: {0.game}\n"
-                               "Users Roles: {1}\n"
+                               "Nickname: {0.nick}\n"
+                               "ID: {0.id}\n"
+                               "Avatar: {0.avatar_url}\n"
+                               "Created At: {0.created_at}\n"
+                               "Joined On: {0.joined_at}\n"
+                               "Game: {0.game}\n"
+                               "Roles: {1}\n"
                                "```".format(ctx.message.author, ", ".join([x.name for x in ctx.message.author.roles if x.name != "@everyone"])))
         else:
             await self.bot.say("```xl\n"
                                "User: {0}\n"
-                               "User Nickname: {0.nick}\n"
-                               "User ID: {0.id}\n"
-                               "User Avatar: {0.avatar_url}\n"
-                               "User Created At: {0.created_at}\n"
-                               "User Joined On: {0.joined_at}\n"
-                               "Users Game: {0.game}\n"
-                               "Users Roles: {1}\n"
+                               "Nickname: {0.nick}\n"
+                               "ID: {0.id}\n"
+                               "Avatar: {0.avatar_url}\n"
+                               "Created At: {0.created_at}\n"
+                               "Joined On: {0.joined_at}\n"
+                               "Game: {0.game}\n"
+                               "Roles: {1}\n"
                                "```".format(user, ", ".join([x.name for x in user.roles if x.name != "@everyone"])))
 
     @commands.command(name="serverinfo", pass_context=True)
@@ -39,8 +41,8 @@ class Info:
         """Gets information about the current server"""
         await self.bot.say("```xl\n"
                            "Server Name: {0}\n"
-                           "Server ID: {0.id}\n"
-                           "Server Region: {0.region}\n"
+                           "ID: {0.id}\n"
+                           "Region: {0.region}\n"
                            "Member Count: {1}\n"
                            "Server Owner: {0.owner}\n"
                            "Server Icon: {0.icon_url}\n"
@@ -51,8 +53,8 @@ class Info:
     @commands.command(name="status")
     async def status(self):
         """Gives some general information about Pixie's current situation"""
-        await self.bot.say("I'm currently on {0} servers\n"
-                           "I can currently see {1} people, {2} of which are unique\n".format(len(self.bot.servers),
+        await self.bot.say("```xl\nI'm currently on {0} servers\n"
+                           "I can currently see {1} people, {2} of which are unique```".format(len(self.bot.servers),
                                                                                               sum(1 for x in self.bot.get_all_members()),
                                                                                               sum(1 for x in (set(self.bot.get_all_members())))))
 

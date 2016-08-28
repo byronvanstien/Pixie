@@ -6,7 +6,7 @@ with open('../../pixie/setup.json') as file:
     setup_file = json.load(file)
 
 # Our user agent
-user_agent = "Pixie (https://github.com/getrektbyme/pixie)"
+user_agent = "Pixie (https://github.com/GetRektByMe/Pixie)"
 
 
 # A function to use with checks to check for owner
