@@ -2,9 +2,6 @@
 import discord
 from discord.ext import commands
 
-# Module level imports
-from utils.checks import is_owner
-
 
 class Moderation:
 
