@@ -11,10 +11,10 @@ from logbook import Logger, StreamHandler
 from logbook.compat import redirect_logging
 
 # Module level imports
-from utils.checks import setup_file
+from utils.checks import setup_file, user_agent
 
 # List of initial plugins to start up with (Loaded in Pixie.run())
-plugins = ["plugins.weeb", "plugins.owner", "plugins.info", "plugins.moderation"]
+plugins = ["plugins.weeb", "plugins.owner", "plugins.info", "plugins.moderation", "plugins.music"]
 
 
 class Pixie(Bot):
@@ -23,6 +23,8 @@ class Pixie(Bot):
         # Trigger super, get our command prefix and set our description
         super().__init__(command_prefix=when_mentioned_or(setup_file["discord"]["command_prefix"]),
                          description="A bot for weebs programmed by Recchan")
+
+        self.http.user_agent = user_agent
 
         # Logging setup
         redirect_logging()
@@ -64,6 +66,10 @@ class Pixie(Bot):
             # Except import error (importlib raises this) so bot doesn't crash when it's raised
             except ImportError as IE:
                 self.logger.critical(IE)
+            # We check if discord.opus is loaded, despite it not having a reason to be
+            if not discord.opus.is_loaded():
+                # Load discord.opus so we can use voice
+                discord.opus.load_opus()
         super().run(setup_file["discord"]["token"])
 
 

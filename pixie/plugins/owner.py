@@ -12,7 +12,7 @@ from discord.ext import commands
 from utils.checks import is_owner
 
 
-class Admin:
+class Owner:
     def __init__(self, bot):
         self.bot = bot
         self.sessions = set()
@@ -164,4 +164,4 @@ class Admin:
 
 
 def setup(bot):
-    bot.add_cog(Admin(bot))
+    bot.add_cog(Owner(bot))

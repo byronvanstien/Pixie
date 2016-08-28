@@ -14,16 +14,7 @@ def is_owner(ctx):
     return ctx.message.author.id == setup_file["discord"]['owner_id']
 
 
-# A function to check if the user is a bot admin
-def is_pixie(ctx):
-    for role in ctx.member.roles:
-        if role.name.lower() == "pixie":
-            return True
-        else:
-            return False
-
-
-# Sanitises roles so when functions that print roles are used it doesn't ping @everyone (To be used w/ checks)
+# Sanitises roles so when functions that print roles are used it doesn't ping @everyone
 def safe_roles(roles: list):
     names = []
     for role in roles:
