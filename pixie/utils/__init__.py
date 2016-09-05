@@ -2,7 +2,7 @@
 import json
 
 # Our setup file
-with open('../../pixie/setup.json') as file:
+with open('../setup.json') as file:
     setup_file = json.load(file)
 
 # Our user agent
