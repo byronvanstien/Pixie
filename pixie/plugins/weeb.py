@@ -1,13 +1,13 @@
 # Third party libraries
-from discord.ext import commands
-from PyAnimeList import PyAnimeList
 from Raitonoberu import Raitonoberu
+from discord.ext import commands
+from utils import setup_file, user_agent
 
-# Module level imports
-from utils.checks import setup_file, user_agent
+from PyAnimeList import PyAnimeList
 
 
 class Weeb:
+    """A set of commands for interacting with typical weeb things like MyAnimeList and NovelUpdates"""
 
     def __init__(self, bot):
         self.bot = bot

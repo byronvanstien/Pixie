@@ -4,15 +4,14 @@ import io
 import traceback
 from contextlib import redirect_stdout
 
-# Third party libraries
 import discord
 from discord.ext import commands
-
-# Module level imports
-from utils.checks import is_owner
+from utils import is_owner
 
 
 class Owner:
+    """A set of commands only for the owner of the bot"""
+
     def __init__(self, bot):
         self.bot = bot
         self.sessions = set()
@@ -31,6 +30,7 @@ class Owner:
         await self.bot.change_status(discord.Game(name=game))
         await self.bot.say('```Game has now been changed to: {}```'.format(game))
 
+    # TODO Change this to download a file and upload that instead
     @commands.check(is_owner)
     @commands.command(name="avatar")
     async def avatar(self, image: str):

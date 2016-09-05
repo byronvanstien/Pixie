@@ -1,14 +1,10 @@
 # Standard library imports
 import asyncio
 
-# Third party librarires
 import discord
 from discord.ext import commands
 from discord.opus import OpusNotLoaded
-
-# Module level imports
-from utils.checks import setup_file
-from utils.checks import user_agent
+from utils import setup_file, user_agent
 
 
 class WeebMusic:
@@ -34,12 +30,17 @@ class WeebMusic:
     async def join_vc_and_play_stream(self, ctx, *, channel: discord.Channel = None):
         """Has the bot join a voice channel and also starts the stream from listen.moe"""
         try:
-            # Because the bot needs a channel to join, if it's None we'll just return the function
+            # Because the bot needs a channel to join, if it's None we'll just return the function assuming they're not in a voice channel
             if channel is None:
-                # Tell the user they actually need to tell us what channel they want Pixie to join
-                await self.bot.say("```xl\nSorry, I'm not too sure what channel you want me to join unless you tell me!```")
-                # Exit out of the function so we don't try joining None
-                return
+                # Set it to the voice channel for the member who triggers the command
+                channel = ctx.message.author.voice.voice_channel
+                # Check if again None (If the command user isn't in a voice channel)
+                if channel is None:
+                    # Tell the user they actually need to tell us what channel they want Pixie to join
+                    await self.bot.say(
+                        "```xl\nSorry, I'm not too sure what channel you want me to join unless you tell me!```")
+                    # Exit out of the function so we don't try joining None
+                    return
             # Get the VoiceClient object
             voice_client = await self.bot.join_voice_channel(channel)
             # Set it to stereo and set sample rate to 48000
@@ -50,6 +51,7 @@ class WeebMusic:
             player.volume = self.default_vol / 100
             # Start the player
             player.start()
+            # Be a tsun while telling the user that you joined the channel
             await self.bot.say("```xl\nI-I didn't join {0.channel} because you told me to... you b-b-baka! *hmph*```".format(voice_client))
             # Add to the dict of server ids linked to objects
             self.players.update({ctx.message.server.id: player})
@@ -119,9 +121,6 @@ class WeebMusic:
         if voice is None:
             await self.bot.say("```xl\nSorry it doesn't seem like I'm in a voice channel in this server!```")
             return
-        player = self.players[ctx.message.server.id]
-        # Stop the audio stream
-        player.stop()
         # Disconnect everything from the voice client object that the server is accessing
         await voice.disconnect()
         # Remove from the dictionaries since we no longer need to access this

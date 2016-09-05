@@ -44,13 +44,12 @@
 
 
 # Information
-* Pixie is built using Discord.py (see [here](https://github.com/Rapptz/discord.py))
-* Another important thing to let you all know is that Pixie is under an MIT license, meaning that you can do whatever with any code on this project, no questions asked.
+* Pixie is built using [discord.py](https://github.com/Rapptz/discord.py)
 * Pixie is a reference to the character from [Mahouka Koukou no Rettousei](http://www.novelupdates.com/series/mahouka-koukou-no-rettousei/) light novels.
 
 # Setup
 
-Assuming you have the folder called pixie it should work fine! Make sure the setup file is in the main folder.
+Assuming you have the files in a folder it should work fine! Make sure the setup file is in the main folder.
 
 But, now we're through all the boring stuff - here's what you need to get it running.
 ```
@@ -70,9 +69,9 @@ But, now we're through all the boring stuff - here's what you need to get it run
 }
 ```
 # Requirements
-* Python 3.5+
+* [Python 3.5+](https://python.org)
 * [discord.py](https://github.com/Rapptz/discord.py)
-* lxml
-* Shosetsu
+* [lxml](https://github.com/lxml/lxml)
+* [Shosetsu](https://git.vertinext.com/ccubed/Shosetsu)
 * [PyAnimeList](https://github.com/GetRektByMe/PyAnimeList)
 * [Raitonoberu](https://github.com/GetRektByMe/Raitonoberu)
