@@ -2,10 +2,11 @@
 import logging
 import sys
 
+# Third party libraries
 import discord
-import logbook
 from discord.ext import commands
 from discord.ext.commands import Bot, when_mentioned_or
+import logbook
 from logbook import Logger, StreamHandler
 from logbook.compat import redirect_logging
 from utils import setup_file, user_agent
@@ -47,7 +48,7 @@ class Pixie(Bot):
     async def on_member_join(self, member):
         # Auto roles people in the Mahouka (Onii-sama) server with the role "Member"
         if member.server.id == '209121677148160000':
-            await bot.say("Hey {0}, welcome to {0.server.name}".format(member))
+            await bot.say("Hey {0.name}, welcome to {0.server.name}".format(member))
             role = discord.utils.get(member.server.roles, name="Member")
             await bot.add_roles(member, role)
 
@@ -81,9 +82,10 @@ class Pixie(Bot):
             except ImportError as IE:
                 self.logger.critical(IE)
             # We check if discord.opus is loaded, despite it not having a reason to be
-            if not discord.opus.is_loaded():
-                # Load discord.opus so we can use voice
-                discord.opus.load_opus()
+        if not discord.opus.is_loaded():
+            # Load discord.opus so we can use voice
+            discord.opus.load_opus()
+            self.logger.info("Opus has been loaded")
         super().run(setup_file["discord"]["token"])
 
 

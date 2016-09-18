@@ -74,5 +74,14 @@ class Weeb:
                                                  manga.synopsis, manga.type, manga.image))
 
 
+class NSFW:
+    """
+    A class for interacting with sites like Gelbooru
+    """
+    def __init__(self, bot):
+        pass
+
+
 def setup(bot):
     bot.add_cog(Weeb(bot))
+    bot.add_cog(NSFW(bot))

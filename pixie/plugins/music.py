@@ -37,8 +37,7 @@ class WeebMusic:
                 # Check if again None (If the command user isn't in a voice channel)
                 if channel is None:
                     # Tell the user they actually need to tell us what channel they want Pixie to join
-                    await self.bot.say(
-                        "```xl\nSorry, I'm not too sure what channel you want me to join unless you tell me!```")
+                    await self.bot.say("```xl\nSorry, I'm not too sure what channel you want me to join unless you tell me!```")
                     # Exit out of the function so we don't try joining None
                     return
             # Get the VoiceClient object
@@ -110,7 +109,7 @@ class WeebMusic:
         # Get the player object from the dict using the server id as a key
         player = self.players[ctx.message.server.id]
         # Have the bot say the volume
-        await self.bot.say(player.volume * 100)
+        await self.bot.say("```xl\nThe current volume is: {}```".format(player.volume * 100))
 
     @music.command(name="disconnect", pass_context=True)
     async def leave_vc(self, ctx):
