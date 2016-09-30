@@ -54,7 +54,7 @@ class Pixie(Bot):
 
     async def on_voice_state_update(self, before, after):
         # If nothing changes just exit out of the function
-        if before.voice.voice_channel == after.voice_channel:
+        if before.voice.voice_channel == after.voice.voice_channel:
             return
         # Exit on channel being None as it errors if Pixie isn't in a voice channel
         if not after.server.me.voice_channel:
