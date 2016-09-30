@@ -1,9 +1,9 @@
 # Third party libraries
-from Raitonoberu import Raitonoberu
+from raitonoberu import Raitonoberu
 from discord.ext import commands
 from utils import setup_file, user_agent
 
-from PyAnimeList import PyAnimeList
+from pyanimelist import PyAnimeList
 
 
 class Weeb:
