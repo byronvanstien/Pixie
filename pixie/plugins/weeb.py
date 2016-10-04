@@ -1,5 +1,5 @@
 # Third party libraries
-from raitonoberu import Raitonoberu
+# from raitonoberu import Raitonoberu
 from discord.ext import commands
 from utils import setup_file, user_agent
 
@@ -17,25 +17,25 @@ class Weeb:
                                  password=setup_file["weeb"]["MAL"]["password"],
                                  user_agent=user_agent)
         # Our instance of Raitonoberu
-        self.raitonoberu = Raitonoberu(user_agent=user_agent)
+        # self.raitonoberu = Raitonoberu(user_agent=user_agent)
 
-    @commands.command(name="novel")
-    async def novel(self, novel_name: str):
-        """
-        Allows the user to search for a novels info from NovelUpdates.com using Raitonoberu (https://github.com/getrektbyme/raitonoberu)
-        """
-        n_data = await self.raitonoberu.get_first_search_result(novel_name)
-        # Send a message with all the data we want
-        await self.bot.say("Cover: {0.cover}\n"
-                           "```xl\n"
-                           "Title: {0.title}\n"
-                           "Author: {1}\n"
-                           "Genres: {2}\n"
-                           "Language: {0.language}\n"
-                           "Description: {0.description}\n"
-                           "```"
-                           "Link: <{0.link}>".format(n_data, ", ".join(x for x in n_data.authors),
-                                                     ", ".join(x for x in n_data.genre)))
+    # @commands.command(name="novel")
+    # async def novel(self, novel_name: str):
+    #     """
+    #     Allows the user to search for a novels info from NovelUpdates.com using Raitonoberu (https://github.com/getrektbyme/raitonoberu)
+    #     """
+    #     n_data = await self.raitonoberu.get_first_search_result(novel_name)
+    #     # Send a message with all the data we want
+    #     await self.bot.say("Cover: {0.cover}\n"
+    #                        "```xl\n"
+    #                        "Title: {0.title}\n"
+    #                        "Author: {1}\n"
+    #                        "Genres: {2}\n"
+    #                        "Language: {0.language}\n"
+    #                        "Description: {0.description}\n"
+    #                        "```"
+    #                        "Link: <{0.link}>".format(n_data, ", ".join(x for x in n_data.authors),
+    #                                                  ", ".join(x for x in n_data.genre)))
 
     @commands.group(pass_context=True, invoke_without_subcommand=True)
     async def mal(self, ctx):
