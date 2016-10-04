@@ -81,7 +81,7 @@ class Pixie(Bot):
             # Except import error (importlib raises this) so bot doesn't crash when it's raised
             except ImportError as IE:
                 self.logger.critical(IE)
-            # We check if discord.opus is loaded, despite it not having a reason to be
+        # We check if discord.opus is loaded, despite it not having a reason to be
         if not discord.opus.is_loaded():
             # Load discord.opus so we can use voice
             discord.opus.load_opus()
