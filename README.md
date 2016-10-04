@@ -49,21 +49,19 @@
 
 # Setup
 
-Assuming you have the files in a folder it should work fine! Make sure the setup file is in the main folder.
-
-But, now we're through all the boring stuff - here's what you need to get it running.
+But, now we're through all the boring stuff - here's what you need to get it running. This should be in the same folder as setup_example.json although it should be called setup.json
 ```
 {
-    "discord":{"owner_id": "Your discord id here",
-                "command_prefix": "Whatever you want Pixies prefix to be (note that pinging pixie will always work)",
-                "token": "Your discord API token"},
+    "discord":{"owner_id": "The bot owners user id",
+                "command_prefix": "The command prefix you're using",
+                "token": "Discord API key"},
 
-    "weeb":{"ani_list": "(LEAVE BLANK, NOT CURRENTLY USED)",
-            "hummingbird": "(LEAVE BLANK, NOT CURRENTLY USED)",
-            "MAL": {"username":"Your myanimelist username",
-                    "password":"Your myanimelist password"}},
+    "weeb":{"ani_list": "Not required yet",
+            "hummingbird": "Not required yet",
+            "MAL": {"username":"Your mal username here",
+                    "password":"Your mal password here"}},
 
-    "games":{"osu_api_key": "(Leave blank, not currently used)"},
+    "games":{"osu_api_key": "Not required yet"},
 
   "log_level": "INFO"
 }
@@ -73,5 +71,5 @@ But, now we're through all the boring stuff - here's what you need to get it run
 * [discord.py](https://github.com/Rapptz/discord.py)
 * [lxml](https://github.com/lxml/lxml)
 * [Shosetsu](https://git.vertinext.com/ccubed/Shosetsu)
-* [PyAnimeList](https://github.com/GetRektByMe/PyAnimeList)
-* [Raitonoberu](https://github.com/GetRektByMe/Raitonoberu)
+* [pyanimelist](https://github.com/GetRektByMe/PyAnimeList)
+* [raitonoberu](https://github.com/GetRektByMe/Raitonoberu)

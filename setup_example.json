@@ -1,0 +1,14 @@
+{
+    "discord":{"owner_id": "The bot owners user id",
+                "command_prefix": "The command prefix you're using",
+                "token": "Discord API key"},
+
+    "weeb":{"ani_list": "Not required yet",
+            "hummingbird": "Not required yet",
+            "MAL": {"username":"Your mal username here",
+                    "password":"Your mal password here"}},
+
+    "games":{"osu_api_key": "Not required yet"},
+
+  "log_level": "INFO"
+}
