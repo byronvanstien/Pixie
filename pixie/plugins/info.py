@@ -1,4 +1,3 @@
-# Third party libraries
 import discord
 from discord.ext import commands
 

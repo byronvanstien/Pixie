@@ -1,12 +1,11 @@
-# Standard Library
-import inspect
 import io
+import inspect
 import traceback
 from contextlib import redirect_stdout
 
 import discord
 from discord.ext import commands
-from utils import is_owner
+from utils.checks import is_owner
 
 
 class Owner:

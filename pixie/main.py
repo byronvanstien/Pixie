@@ -1,15 +1,18 @@
-# Standard library imports
-import logging
 import sys
+import logging
+import traceback
 
-# Third party libraries
+import logbook
 import discord
 from discord.ext import commands
-from discord.ext.commands import Bot, when_mentioned_or
-import logbook
 from logbook import Logger, StreamHandler
 from logbook.compat import redirect_logging
-from utils import setup_file, user_agent
+from discord.ext.commands import Bot, when_mentioned_or
+
+from utils.checks import is_owner
+from utils.errors import FailedHaste
+from utils import setup_file, user_agent, hastebin
+
 
 # List of initial plugins to start up with (Loaded in Pixie.run())
 plugins = ["plugins.weeb", "plugins.owner", "plugins.info", "plugins.moderation", "plugins.music"]
@@ -18,7 +21,6 @@ plugins = ["plugins.weeb", "plugins.owner", "plugins.info", "plugins.moderation"
 class Pixie(Bot):
 
     def __init__(self, *args, **kwargs):
-        # Call super, get our command prefix and set our description
         super().__init__(command_prefix=when_mentioned_or(setup_file["discord"]["command_prefix"]),
                          description="A bot for weebs programmed by Recchan")
 
@@ -32,18 +34,26 @@ class Pixie(Bot):
         self.logger.level = getattr(logbook, setup_file.get("log_level", "INFO"), logbook.INFO)
         logging.root.setLevel(self.logger.level)
 
-    # Prints out the user we're logged into as
     async def on_ready(self):
         self.logger.info("Logged in as Bot Name: {0.user.name} Bot ID: {0.user.id}".format(self))
 
-    # Exit if the command isn't found, so our console isn't spammed
-    # Tell the user that they can't run the command if they don't pass the checks
     async def on_command_error(self, exception, ctx):
-        print(exception)  # Remove once I've finished debugging Pixie
         if isinstance(exception, commands.errors.CommandNotFound):
             return
         if isinstance(exception, commands.errors.CheckFailure):
             await self.send_message(ctx.message.channel, "You don't have the required permissions to run this command.")
+            return
+        if is_owner(ctx):
+            try:
+                # Get a string of the traceback
+                trace = "\n".join(traceback.format_tb(exception.__traceback__))
+                # Send that string as the data to hastebin
+                msg = await hastebin(trace)
+                # Send the link of the hastebin to discord
+                await self.send_message(ctx.message.channel, msg)
+            # Error raised when the hastebin fails
+            except FailedHaste:
+                await self.send_message(ctx.message.channel, "Failed to make hastebin.")
 
     async def on_member_join(self, member):
         # Auto roles people in the Mahouka (Onii-sama) server with the role "Member"
@@ -89,7 +99,6 @@ class Pixie(Bot):
         super().run(setup_file["discord"]["token"])
 
 
-# Actually start up the bot
 if __name__ == "__main__":
     bot = Pixie()
     bot.run()

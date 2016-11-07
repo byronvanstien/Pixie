@@ -1,14 +1,21 @@
 {
-    "discord":{"owner_id": "The bot owners user id",
-                "command_prefix": "The command prefix you're using",
-                "token": "Discord API key"},
+    "discord":{
+        "owner_id": "",
+        "command_prefix": "",
+        "token": "",
+        "pixie_admins": []
+    },
 
-    "weeb":{"ani_list": "Not required yet",
-            "hummingbird": "Not required yet",
-            "MAL": {"username":"Your mal username here",
-                    "password":"Your mal password here"}},
+    "weeb":{
+        "ani_list": "",
+        "hummingbird": "",
+        "MAL": {
+            "username":"",
+            "password":""
+        }
+    },
 
-    "games":{"osu_api_key": "Not required yet"},
-
-  "log_level": "INFO"
+    "games":{
+        "osu_api_key": ""
+    },
 }

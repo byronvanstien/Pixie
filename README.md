@@ -52,24 +52,24 @@
 But, now we're through all the boring stuff - here's what you need to get it running. This should be in the same folder as setup_example.json although it should be called setup.json
 ```
 {
-    "discord":{"owner_id": "The bot owners user id",
-                "command_prefix": "The command prefix you're using",
-                "token": "Discord API key"},
+    "discord":{
+        "owner_id": "",
+        "command_prefix": "",
+        "token": "",
+        "pixie_admins": []
+    },
 
-    "weeb":{"ani_list": "Not required yet",
-            "hummingbird": "Not required yet",
-            "MAL": {"username":"Your mal username here",
-                    "password":"Your mal password here"}},
+    "weeb":{
+        "ani_list": "",
+        "hummingbird": "",
+        "MAL": {
+            "username":"",
+            "password":""
+        }
+    },
 
-    "games":{"osu_api_key": "Not required yet"},
-
-  "log_level": "INFO"
+    "games":{
+        "osu_api_key": ""
+    },
 }
 ```
-# Requirements
-* [Python 3.5+](https://python.org)
-* [discord.py](https://github.com/Rapptz/discord.py)
-* [lxml](https://github.com/lxml/lxml)
-* [Shosetsu](https://git.vertinext.com/ccubed/Shosetsu)
-* [pyanimelist](https://github.com/GetRektByMe/PyAnimeList)
-* [raitonoberu](https://github.com/GetRektByMe/Raitonoberu)
