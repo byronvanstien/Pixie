@@ -38,6 +38,7 @@ class Pixie(Bot):
         self.logger.info("Logged in as Bot Name: {0.user.name} Bot ID: {0.user.id}".format(self))
 
     async def on_command_error(self, exception, ctx):
+        print(exception)
         if isinstance(exception, commands.errors.CommandNotFound):
             return
         if isinstance(exception, commands.errors.CheckFailure):
@@ -46,7 +47,7 @@ class Pixie(Bot):
         if is_owner(ctx):
             try:
                 # Get a string of the traceback
-                trace = "\n".join(traceback.format_tb(exception.__traceback__))
+                trace = "".join(traceback.format_tb(exception.__traceback__))
                 # Send that string as the data to hastebin
                 msg = await hastebin(trace)
                 # Send the link of the hastebin to discord
@@ -75,8 +76,6 @@ class Pixie(Bot):
             voice = self.voice_client_in(after.server)
             # Disconnect the VoiceClient and close the stream
             await voice.disconnect()
-            await self.send_message(after.server.default_channel,
-                                    "```\nSorry! Since no one was using me I left :c you can have me re-join easily though!```")
 
     def run(self):
         # We load plugins in run rather than on_ready due to on_ready being able to be called multiple times

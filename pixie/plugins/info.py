@@ -12,28 +12,19 @@ class Info:
     @commands.command(name="userinfo", pass_context=True)
     async def user_info(self, ctx, user: discord.Member = None):
         """Gets information about the desired user (defaults to the message sender)"""
-        if user is None:
-            await self.bot.say("```xl\n"
-                               "User: {0}\n"
-                               "Nickname: {0.nick}\n"
-                               "ID: {0.id}\n"
-                               "Avatar: {0.avatar_url}\n"
-                               "Created At: {0.created_at}\n"
-                               "Joined On: {0.joined_at}\n"
-                               "Game: {0.game}\n"
-                               "Roles: {1}\n"
-                               "```".format(ctx.message.author, ", ".join([x.name for x in ctx.message.author.roles if x.name != "@everyone"])))
-        else:
-            await self.bot.say("```xl\n"
-                               "User: {0}\n"
-                               "Nickname: {0.nick}\n"
-                               "ID: {0.id}\n"
-                               "Avatar: {0.avatar_url}\n"
-                               "Created At: {0.created_at}\n"
-                               "Joined On: {0.joined_at}\n"
-                               "Game: {0.game}\n"
-                               "Roles: {1}\n"
-                               "```".format(user, ", ".join([x.name for x in user.roles if x.name != "@everyone"])))
+        if not user:
+            user = ctx.message.author
+        msg = "```\n"
+        msg += "User: %s\n" % user.name
+        msg += "Nickname %s\n" % user.nick
+        msg += "ID: %s\n" % user.id
+        msg += "Created at: %s\n" % user.created_at
+        msg += "Joined on: %s\n" % user.joined_at
+        msg += "Game: %s\n" % user.game
+        msg += "Roles: %s\n" % ", ".join([role.name for role in user.roles if role.name != "@everyone"])
+        msg += "```\n"
+        msg += "Avatar: %s" % user.avatar_url
+        await self.bot.send_message(ctx.message.channel, msg)
 
     @commands.command(name="guildinfo", pass_context=True)
     async def guild_info(self, ctx):

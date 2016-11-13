@@ -25,7 +25,7 @@ class Weeb:
         # Add all the anime names there to let the user select
         message = "```What anime would you like:\n"
         for anime in animes_.items():
-            message += "[{}] {}\n".format(str(anime[0]), anime[1].title)
+            message += "[{}] {}\n".format(str(anime[0]), anime[1].titles.jp)
         message += "\nUse the number to the side of the anime as a key to select it!```"
         await self.bot.send_message(ctx.message.channel, message)
         msg = await self.bot.wait_for_message(timeout=10.0, author=ctx.message.author)
@@ -38,13 +38,13 @@ class Weeb:
                 await self.bot.send_message(ctx.message.channel, "Invalid Key.")
 
             anime_data = "```\nID: {0.id}\n".format(requested_anime)
-            anime_data += "Title: {0.title}\n".format(requested_anime)
-            anime_data += "English Title: {0.english}\n".format(requested_anime)
-            anime_data += "Episode Count: {0.episodes}\n".format(requested_anime)
+            anime_data += "Title: {0.titles.jp}\n".format(requested_anime)
+            anime_data += "English Title: {0.titles.english}\n".format(requested_anime)
+            anime_data += "Episode Count: {0.episode_count}\n".format(requested_anime)
             anime_data += "Type: {0.type}\n".format(requested_anime)
             anime_data += "Status: {0.status}\n\n".format(requested_anime)
             anime_data += "Synopsis: {0.synopsis}```".format(requested_anime)
-            anime_data += "Image: {0.image}".format(requested_anime)
+            anime_data += "Image: {0.cover}".format(requested_anime)
 
             await self.bot.send_message(ctx.message.channel, anime_data)
         else:
@@ -59,7 +59,7 @@ class Weeb:
         mangas_ = dict(enumerate(mangas[:10]))
         message = "```What manga would you like:\n"
         for manga in mangas_.items():
-            message += "[{}] {}\n".format(str(manga[0]), manga[1].title)
+            message += "[{}] {}\n".format(str(manga[0]), manga[1].titles.jp)
         message += "\nUse the number to the side of the manga as a key to select it!```"
         await self.bot.send_message(ctx.message.channel, message)
         msg = await self.bot.wait_for_message(timeout=10.0, author=ctx.message.author)
@@ -71,13 +71,13 @@ class Weeb:
                 await self.bot.send_message(ctx.message.channel, "Invalid key.")
 
             manga_data = "```\nID: {0.id}\n".format(requested_manga)
-            manga_data += "Title: {0.title}\n".format(requested_manga)
-            manga_data += "English Title: {0.english}\n".format(requested_manga)
+            manga_data += "Title: {0.titles.jp}\n".format(requested_manga)
+            manga_data += "English Title: {0.titles.english}\n".format(requested_manga)
             manga_data += "Volume Count: {0.volumes}\n".format(requested_manga)
             manga_data += "Type {0.type}\n".format(requested_manga)
             manga_data += "Status: {0.status}\n\n".format(requested_manga)
             manga_data += "Synopsis: {0.synopsis}```".format(requested_manga)
-            manga_data += "Image: {0.image}".format(requested_manga)
+            manga_data += "Image: {0.cover}".format(requested_manga)
 
             await self.bot.send_message(ctx.message.channel, manga_data)
         else:

@@ -14,9 +14,7 @@ class WeebMusic:
 
     def __init__(self, bot):
         self.bot = bot
-        # The dictionary that hold player objects
         self.players = {}
-        # Default volume for WeebMusic
         self.default_vol = 100
 
     @commands.group(pass_context=True)

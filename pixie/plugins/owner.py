@@ -16,12 +16,6 @@ class Owner:
         self.sessions = set()
 
     @commands.check(is_owner)
-    @commands.command(pass_context=True, name="announcement")
-    async def announcement(self, ctx, message: str):
-        for x in ctx.bot.servers:
-            await self.bot.send_message(x.default_channel, message)
-
-    @commands.check(is_owner)
     @commands.command(name="namechange")
     async def name_change(self, *, name: str):
         """Lets the bot owner change the name of the bot"""
