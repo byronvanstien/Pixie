@@ -44,17 +44,17 @@ class Pixie(Bot):
         if isinstance(exception, commands.errors.CheckFailure):
             await self.send_message(ctx.message.channel, "You don't have the required permissions to run this command.")
             return
-        if is_owner(ctx):
-            try:
-                # Get a string of the traceback
-                trace = "".join(traceback.format_tb(exception.__traceback__))
-                # Send that string as the data to hastebin
-                msg = await hastebin(trace)
-                # Send the link of the hastebin to discord
-                await self.send_message(ctx.message.channel, msg)
-            # Error raised when the hastebin fails
-            except FailedHaste:
-                await self.send_message(ctx.message.channel, "Failed to make hastebin.")
+        # if is_owner(ctx):
+        #     try:
+        #         # Get a string of the traceback
+        #         trace = "".join(traceback.format_tb(exception.__traceback__))
+        #         # Send that string as the data to hastebin
+        #         msg = await hastebin(trace)
+        #         # Send the link of the hastebin to discord
+        #         await self.send_message(ctx.message.channel, msg)
+        #     # Error raised when the hastebin fails
+        #     except FailedHaste:
+        #         await self.send_message(ctx.message.channel, "Failed to make hastebin.")
 
     async def on_member_join(self, member):
         # Auto roles people in the Mahouka (Onii-sama) server with the role "Member"

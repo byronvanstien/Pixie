@@ -1,7 +1,8 @@
+import discord
 from discord.ext import commands
-from utils import setup_file, user_agent
-
 from pyanimelist import PyAnimeList
+
+from utils import setup_file, user_agent
 
 
 class Weeb:
@@ -18,70 +19,85 @@ class Weeb:
 
     @commands.command(pass_context=True)
     async def anisearch(self, ctx, *, anime_name: str):
+        author = ctx.message.author
+        avatar = author.avatar_url or author.default_avatar_url
         # List of anime objects
         animes = await self.pyanimelist.search_all_anime(anime_name)
         # Put the first 10 in a dictionary with ints as keys
-        animes_ = dict(enumerate(animes[:10]))
+        animes_ = dict(enumerate(animes[:15]))
         # Add all the anime names there to let the user select
         message = "```What anime would you like:\n"
         for anime in animes_.items():
             message += "[{}] {}\n".format(str(anime[0]), anime[1].titles.jp)
         message += "\nUse the number to the side of the anime as a key to select it!```"
         await self.bot.send_message(ctx.message.channel, message)
-        msg = await self.bot.wait_for_message(timeout=10.0, author=ctx.message.author)
-        if msg:
-            key = msg.content
-            try:
-                # Get the anime object the user wants
-                requested_anime = animes_[int(key)]
-            except (ValueError, KeyError):
-                await self.bot.send_message(ctx.message.channel, "Invalid Key.")
-
-            anime_data = "```\nID: {0.id}\n".format(requested_anime)
-            anime_data += "Title: {0.titles.jp}\n".format(requested_anime)
-            anime_data += "English Title: {0.titles.english}\n".format(requested_anime)
-            anime_data += "Episode Count: {0.episode_count}\n".format(requested_anime)
-            anime_data += "Type: {0.type}\n".format(requested_anime)
-            anime_data += "Status: {0.status}\n\n".format(requested_anime)
-            anime_data += "Synopsis: {0.synopsis}```".format(requested_anime)
-            anime_data += "Image: {0.cover}".format(requested_anime)
-
-            await self.bot.send_message(ctx.message.channel, anime_data)
-        else:
+        msg = await self.bot.wait_for_message(timeout=10.0, author=author)
+        # If they don't send a message
+        if not msg:
             return
+        # Use this to get our anime object
+        key = int(msg.content)
+        try:
+            # Get the anime object the user wants
+            anime = animes_[key]
+        except (ValueError, KeyError):
+            await self.bot.send_message(ctx.message.channel, "Invalid Key.")
+
+        embed = discord.Embed(
+            title=anime.titles.jp,
+            colour=discord.Colour(0x7289da),
+            url="https://myanimelist.net/anime/{0.id}/{0.titles.jp}".format(anime).replace(" ", "%20")
+        )
+
+        embed.set_author(name=author.display_name, icon_url=avatar)
+        embed.set_image(url=anime.cover)
+        embed.add_field(name="Episode Count", value=str(anime.episode_count))
+        embed.add_field(name="Type", value=anime.type)
+        embed.add_field(name="Status", value=anime.status)
+        embed.add_field(name="Synopsis", value=anime.synopsis.split("\n\n", maxsplit=1)[0])
+
+        await self.bot.send_message(ctx.message.channel, embed=embed)
 
     @commands.command(pass_context=True)
     async def mangasearch(self, ctx, *, manga_name: str):
         """
         Lets the user get data from a manga from myanimelist
         """
+        author = ctx.message.author
+        avatar = author.avatar_url or author.default_avatar_url
         mangas = await self.pyanimelist.search_all_manga(manga_name)
-        mangas_ = dict(enumerate(mangas[:10]))
+        mangas_ = dict(enumerate(mangas[:15]))
         message = "```What manga would you like:\n"
         for manga in mangas_.items():
             message += "[{}] {}\n".format(str(manga[0]), manga[1].titles.jp)
         message += "\nUse the number to the side of the manga as a key to select it!```"
         await self.bot.send_message(ctx.message.channel, message)
         msg = await self.bot.wait_for_message(timeout=10.0, author=ctx.message.author)
-        if msg:
-            key = msg.content
-            try:
-                requested_manga = mangas_[int(key)]
-            except (ValueError, KeyError):
-                await self.bot.send_message(ctx.message.channel, "Invalid key.")
-
-            manga_data = "```\nID: {0.id}\n".format(requested_manga)
-            manga_data += "Title: {0.titles.jp}\n".format(requested_manga)
-            manga_data += "English Title: {0.titles.english}\n".format(requested_manga)
-            manga_data += "Volume Count: {0.volumes}\n".format(requested_manga)
-            manga_data += "Type {0.type}\n".format(requested_manga)
-            manga_data += "Status: {0.status}\n\n".format(requested_manga)
-            manga_data += "Synopsis: {0.synopsis}```".format(requested_manga)
-            manga_data += "Image: {0.cover}".format(requested_manga)
-
-            await self.bot.send_message(ctx.message.channel, manga_data)
-        else:
+        # If they don't send a message
+        if not msg:
             return
+        # Use this to get our manga object
+        key = int(msg.content)
+        try:
+            # Get the manga object the user wants
+            manga = mangas_[key]
+        except (ValueError, KeyError):
+            await self.bot.send_message(ctx.message.channel, "Invalid key.")
+
+        embed = discord.Embed(
+            title=manga.titles.jp,
+            colour=discord.Colour(0x7289da),
+            url="https://myanimelist.net/manga/{0.id}/{0.titles.jp}".format(manga).replace(" ", "%20")
+        )
+
+        embed.set_author(name=author.display_name, icon_url=avatar)
+        embed.set_image(url=manga.cover)
+        embed.add_field(name="Volume Count", value=str(manga.volumes))
+        embed.add_field(name="Type", value=manga.type)
+        embed.add_field(name="Status", value=manga.status)
+        embed.add_field(name="Synopsis", value=manga.synopsis.split("\n\n", maxsplit=1)[0])
+
+        await self.bot.send_message(ctx.message.channel, embed=embed)
 
 
 class NSFW:
