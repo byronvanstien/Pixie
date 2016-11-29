@@ -44,7 +44,7 @@
 
 
 # Information
-* Pixie is built using [discord.py](https://github.com/Rapptz/discord.py)
+* Pixie is built using [discord.py](https://github.com/Rapptz/discord.py/)
 * Pixie is a reference to the character from [Mahouka Koukou no Rettousei](http://www.novelupdates.com/series/mahouka-koukou-no-rettousei/) light novels.
 
 # Setup
