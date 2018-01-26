@@ -1,3 +1,6 @@
+# THIS PROJECT IS NOW ARCHIVED
+See [here](https://github.com/WeebWare/Pixie) for the new iteration of Pixie, coming soon.
+
 # Pixie
 * An open-source Discord bot built for weebs by a weeb.
 * Here's the [invite link](https://discordapp.com/oauth2/authorize?client_id=175319652073734144&scope=bot&permissions=536083519) in case you want to add Pixie to your server. (Although she's not currently hosted by me), note that I am planning to host her quite soon now the addition of WeebMusic has been added!
